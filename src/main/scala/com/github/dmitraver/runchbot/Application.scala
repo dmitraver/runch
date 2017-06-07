@@ -19,7 +19,7 @@ object Application extends HttpApp {
   override def route: Route =
     path("api" / "commands") {
       post {
-        formFields('token, 'team_id, 'quser_id, 'user_name, 'command, 'text, 'response_url) { (token, teamId, userId, userName, command, text, responseUrl) =>
+        formFields('token, 'team_id, 'user_id, 'user_name, 'command, 'text, 'response_url) { (token, teamId, userId, userName, command, text, responseUrl) =>
           if (!TokenVerifier.verifyToken(token)) complete(StatusCodes.Forbidden, "Token verification has failed.")
           else {
             val reply = lunchLotteryActor ? GetPartner(User(userId, userName, teamId, text))
