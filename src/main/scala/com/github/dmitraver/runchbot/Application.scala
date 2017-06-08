@@ -6,7 +6,7 @@ import akka.http.scaladsl.server.{HttpApp, Route}
 import akka.pattern.ask
 import akka.util.Timeout
 import com.github.dmitraver.runchbot.LunchLotteryActor.{GetPartner, Partner}
-
+import com.typesafe.config.ConfigFactory
 import scala.concurrent.duration._
 
 object Application extends HttpApp {
@@ -35,8 +35,11 @@ object Application extends HttpApp {
 }
 
 object App {
+
+  private val config = ConfigFactory.load()
+
   def main(args: Array[String]): Unit = {
-    Application.startServer("localhost", 8080)
+    Application.startServer("0.0.0.0", config.getInt("http.port"))
   }
 }
 
