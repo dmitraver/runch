@@ -25,7 +25,7 @@ object Application extends HttpApp {
             val reply = lunchLotteryActor ? GetPartner(User(userId, userName, teamId, text))
             onSuccess(reply) { result =>
               result.asInstanceOf[Partner].partner.fold(complete("Hi there! I've added you to the list of participants. I will notify you once I have a match so stay tuned!")) { partner =>
-                complete(s"It's me again. @${partner.userName} was picked to have a lunch with you!")
+                complete(s"It's me again. <@${partner.userId}> was picked to have a lunch with you!")
               }
             }
           }
